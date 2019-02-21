@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FDF2D0BD-1CB6-445D-9845-F60E50E25014}</ProjectGuid>
+    <ProjectGuid>{57A21E87-9DD7-4D57-8610-171BA9BA0680}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DAOMock</RootNamespace>
-    <AssemblyName>DAOMock</AssemblyName>
+    <RootNamespace>Must</RootNamespace>
+    <AssemblyName>Must</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,21 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BO\Car.cs" />
-    <Compile Include="BO\Producent.cs" />
-    <Compile Include="DB.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLC\BLC.csproj">
+      <Project>{491894f9-0b66-4c2f-acc4-69ba0bf282f3}</Project>
+      <Name>BLC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{364436bd-3996-4210-8ff2-afdd17a6da60}</Project>
+      <Project>{bd110e32-8b08-4875-bfac-645aa9feca09}</Project>
       <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
-      <Project>{96dd44d8-d82e-4f1e-8ada-be76497d7e6b}</Project>
+      <Project>{79da87ba-7a4f-4642-8a87-4b5fbe1a9bc7}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
   </ItemGroup>

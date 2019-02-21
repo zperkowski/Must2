@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAOMock
+namespace Core
 {
-    class DB
-    {
-        
-    }
+    public enum InstrumentType { Guitar, Piano};
 }

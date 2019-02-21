@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    interface IInstrument
+    public interface IInstrument
     {
         int ID { get; set; }
         string Name { get; set; }
-        float Price { get; set; }
-
-        Core.InstrumentType InstrumentT { get; set; }
+        int ProductionYear { get; set; }
+        IProducer Producer { get; set; }
+        Core.InstrumentType Type { get; set; }
     }
 }

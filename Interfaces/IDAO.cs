@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Interfaces
 {
-    interface IDAO
+    public interface IDAO
     {
-        IEnumerable<IInstrument> GetAllInstruments();
         IEnumerable<IProducer> GetAllProducers();
-        IInstrument CreateEmptyInstrument();
+        IEnumerable<IInstrument> GetAllInstruments();
     }
 }

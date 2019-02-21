@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace DAOMock1.BO
 {
-    public class Car : IInstrument
+    public class Instrument : IInstrument
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int Price { get; set; }
-        public InstrumentType Instrument { get; set; }
+        public int ProductionYear { get; set; }
+        public IProducer Producer { get; set; }
+        public InstrumentType Type { get; set; }
 
         public override string ToString()
         {
-            return $"Name: {Name} - {Price} {Instrument} ";
+            return $"Name: {Name} - {ProductionYear} [ {Producer.Name} ] {Type} ";
         }
     }
 }

@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DCE2AD58-063B-4A01-9E77-AB07E2DB31FE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{491894F9-0B66-4C2F-ACC4-69BA0BF282F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BLC</RootNamespace>
     <AssemblyName>BLC</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,15 +45,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{364436bd-3996-4210-8ff2-afdd17a6da60}</Project>
+      <Project>{bd110e32-8b08-4875-bfac-645aa9feca09}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DAOMock1\DAOMock1.csproj">
+      <Project>{a12a2ffa-be95-4e63-a042-0b81dad995c9}</Project>
+      <Name>DAOMock1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
-      <Project>{96dd44d8-d82e-4f1e-8ada-be76497d7e6b}</Project>
+      <Project>{79da87ba-7a4f-4642-8a87-4b5fbe1a9bc7}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
   </ItemGroup>

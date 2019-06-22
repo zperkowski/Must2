@@ -10,7 +10,7 @@ namespace Must
     {
         static void Main(string[] args)
         {
-            BLC.BLC blc = new BLC.BLC();
+            BLC.BLC blc = new BLC.BLC("");
 
             foreach (var prod in blc.GetProducers())
             {

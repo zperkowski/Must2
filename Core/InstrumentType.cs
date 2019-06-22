@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public enum InstrumentType { Guitar, Piano};
+    public enum InstrumentType { Guitar, Piano, Unknown};
 }

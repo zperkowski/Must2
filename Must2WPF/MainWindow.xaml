@@ -24,7 +24,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-            <Button Command="{Binding CreateInstrumentCommand}">Create Instrument</Button>
+            <Button Command="{Binding SaveInstrumentCommand}">Create Instrument</Button>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>

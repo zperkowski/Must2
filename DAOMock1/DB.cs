@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DAOMock1
 {
@@ -14,6 +15,7 @@ namespace DAOMock1
 
         public DB()
         {
+            MessageBox.Show("DB");
             _producers = new List<IProducer>()
             {
                 new BO.Producent{ ID=1, Name="Yamaha", Founded=1887 },
@@ -25,43 +27,43 @@ namespace DAOMock1
             {
                 new BO.Instrument
                 {
-                    ID =1,
+                    ID = 0,
                     Name ="Guitar1",
                     Producer = _producers[0],
-                    ProductionYear =1999,
-                    Type =Core.InstrumentType.Guitar
+                    ProductionYear = 1999,
+                    Type = Core.InstrumentType.Guitar
                 },
                 new BO.Instrument
                 {
-                    ID =2,
+                    ID = 1,
                     Name ="Guitar2",
                     Producer = _producers[0],
-                    ProductionYear =2009,
-                    Type =Core.InstrumentType.Guitar
+                    ProductionYear = 2009,
+                    Type = Core.InstrumentType.Guitar
                 },
                 new BO.Instrument
                 {
-                    ID =3,
+                    ID = 2,
                     Name ="Piano1",
                     Producer = _producers[1],
-                    ProductionYear =2000,
-                    Type =Core.InstrumentType.Piano
+                    ProductionYear = 2000,
+                    Type = Core.InstrumentType.Piano
                 },
                 new BO.Instrument
                 {
-                    ID =4,
+                    ID = 3,
                     Name ="Piano2",
                     Producer = _producers[0],
                     ProductionYear = 2007,
-                    Type =Core.InstrumentType.Piano
+                    Type = Core.InstrumentType.Piano
                 },
                 new BO.Instrument
                 {
-                    ID =5,
+                    ID = 4,
                     Name ="Guitar3",
                     Producer = _producers[2],
-                    ProductionYear =2002,
-                    Type =Core.InstrumentType.Guitar
+                    ProductionYear = 2002,
+                    Type = Core.InstrumentType.Guitar
                 }
 
 
@@ -76,6 +78,30 @@ namespace DAOMock1
         public IEnumerable<IProducer> GetAllProducers()
         {
             return _producers;
+        }
+
+        public bool AddInstrument(IInstrument instrument)
+        {
+            if (_instruments.Contains(instrument))
+                return false;
+            instrument.ID = _instruments.Count();
+            _instruments.Add(instrument);
+            return true;
+        }
+
+        public IInstrument NewInstrument()
+        {
+            IInstrument newI = new BO.Instrument
+            {
+                ID = _instruments.Count(),
+                Name = "New",
+                Producer = null,
+                ProductionYear = 0,
+                Type = Core.InstrumentType.Unknown
+            };
+            _instruments.Add(newI);
+            MessageBox.Show("DB NewInstrument " + _instruments.Count());
+            return newI;
         }
     }
 }

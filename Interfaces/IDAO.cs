@@ -10,5 +10,7 @@ namespace Interfaces
     {
         IEnumerable<IProducer> GetAllProducers();
         IEnumerable<IInstrument> GetAllInstruments();
+        bool AddInstrument(IInstrument instrument);
+        IInstrument NewInstrument();
     }
 }

@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BLC
 {
@@ -11,6 +13,22 @@ namespace BLC
     {
         private IDAO dao = new DAOMock1.DB();
 
+        public BLC(string DAOFilename)
+        {
+            MessageBox.Show("BLC");
+            Assembly ddl = Assembly.Load(DAOFilename);
+            Type daoType = FindDaoType(ddl);
+            object o = Activator.CreateInstance(daoType);
+            dao = (IDAO)o;
+        }
+        private static Type FindDaoType(Assembly ddl)
+        {
+            var types = ddl.GetTypes();
+            var i = Array.FindIndex(types, t => t.Name.StartsWith("DB"));
+            if (i == -1)
+                throw new System.TypeLoadException("DAO not found");
+            return types[i];
+        }
         public IEnumerable<IInstrument> GetInstruments()
         {
             return dao.GetAllInstruments();
@@ -19,6 +37,16 @@ namespace BLC
         public IEnumerable<IProducer> GetProducers()
         {
             return dao.GetAllProducers();
+        }
+
+        public bool AddInstrument(IInstrument instrument)
+        {
+            return dao.AddInstrument(instrument);
+        }
+
+        public IInstrument NewInstrument()
+        {
+            return dao.NewInstrument();
         }
     }
 }

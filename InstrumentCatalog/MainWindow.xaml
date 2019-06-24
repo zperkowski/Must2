@@ -11,7 +11,7 @@
         <ListBox Name="instrumentsLstBox" DockPanel.Dock="Left" 
                  Width="150"
                  ItemsSource="{Binding Instruments}"
-                 SelectedItem="{Binding SelectedInstrument,Mode=TwoWay}">
+                 SelectedItem="{Binding CurrentInstrument}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -25,13 +25,14 @@
         </ListBox>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
             <Button Command="{Binding CreateInstrumentCommand}">Create Instrument</Button>
+            <Button Command="{Binding DeleteInstrumentCommand}">Delete Instrument</Button>
         </StackPanel>
-        <Grid>
+        <Grid DataContext="{Binding CurrentInstrument}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" DataContext="{Binding ElementName=instrumentsLstBox,Path=SelectedItem}">
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>

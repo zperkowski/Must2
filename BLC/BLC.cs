@@ -15,7 +15,6 @@ namespace BLC
 
         public BLC(string DAOFilename)
         {
-            MessageBox.Show("BLC");
             Assembly ddl = Assembly.Load(DAOFilename);
             Type daoType = FindDaoType(ddl);
             object o = Activator.CreateInstance(daoType);
@@ -47,6 +46,10 @@ namespace BLC
         public IInstrument NewInstrument()
         {
             return dao.NewInstrument();
+        }
+        public bool DeleteInstrument(IInstrument instrument)
+        {
+            return dao.DeleteInstrument(instrument);
         }
     }
 }

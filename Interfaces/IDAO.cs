@@ -12,5 +12,6 @@ namespace Interfaces
         IEnumerable<IInstrument> GetAllInstruments();
         bool AddInstrument(IInstrument instrument);
         IInstrument NewInstrument();
+        bool DeleteInstrument(IInstrument instrument);
     }
 }

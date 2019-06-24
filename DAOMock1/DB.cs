@@ -15,7 +15,6 @@ namespace DAOMock1
 
         public DB()
         {
-            MessageBox.Show("DB");
             _producers = new List<IProducer>()
             {
                 new BO.Producent{ ID=1, Name="Yamaha", Founded=1887 },
@@ -102,6 +101,12 @@ namespace DAOMock1
             _instruments.Add(newI);
             MessageBox.Show("DB NewInstrument " + _instruments.Count());
             return newI;
+        }
+
+        public bool DeleteInstrument(IInstrument instrument)
+        {
+            MessageBox.Show("DB DeleteInstrument");
+            return _instruments.Remove(instrument);
         }
     }
 }

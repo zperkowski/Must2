@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BLC;
 using System.Windows.Input;
 using System.Windows;
+using System.Reflection;
 
 namespace InstrumentCatalog.ViewModel
 {
@@ -19,13 +20,12 @@ namespace InstrumentCatalog.ViewModel
 
         public InstrumentListViewModel(BLC.BLC blc)
         {
-            MessageBox.Show("InstrumentListViewModel");
             this.blc = blc;
             Instruments = new ObservableCollection<InstrumentViewModel>(
                     blc.GetInstruments().Select(p => new InstrumentViewModel(p)));
-            EditCurrentInstrument = new InstrumentViewModel(blc.NewInstrument());
             CreateInstrumentCommand = new RCommand(_ => CreateInstrument());
-            SaveInstrumentCommand = new RCommand(_ => SaveInstrument(), _ => EditCurrentInstrument != null);
+            DeleteInstrumentCommand = new RCommand(_ => DeleteInstrument(), _ => CurrentInstrument != null);
+            SaveInstrumentCommand = new RCommand(_ => SaveInstrument(), _ => CurrentInstrument != null);
         }
 
         public ObservableCollection<InstrumentViewModel> Instruments { get; set; }
@@ -44,16 +44,19 @@ namespace InstrumentCatalog.ViewModel
             get => producers;
         }
 
-        private InstrumentViewModel EditCurrentInstrument
+        public InstrumentViewModel CurrentInstrument
         {
             get => _currentInstrument;
             set
             {
+                MessageBox.Show("CurrentInstrument " + value);
                 _currentInstrument = value;
-                OnPropertyChanged(nameof(EditCurrentInstrument));
+                OnPropertyChanged(nameof(CurrentInstrument));
             }
         }
         public ICommand CreateInstrumentCommand { get; }
+        public ICommand SelectInstrumentCommand { get; set; }
+        public ICommand DeleteInstrumentCommand { get; }
         public ICommand SaveInstrumentCommand { get; }
 
         private void CreateInstrument()
@@ -61,11 +64,33 @@ namespace InstrumentCatalog.ViewModel
             IInstrument newInstrument = blc.NewInstrument();
             Instruments.Add(new InstrumentViewModel(newInstrument));
         }
+        private InstrumentViewModel SelectInstrument
+        {
+            get => _currentInstrument;
+            set
+            {
+                _currentInstrument = value;
+                OnPropertyChanged(nameof(SelectInstrument));
+            }
+        }
+        private void DeleteInstrument()
+        {
+            MessageBox.Show("DeleteInstrument");
+            if (blc.DeleteInstrument(CurrentInstrument.Instrument))
+                Instruments.Remove(SelectInstrument);
+        }
         private void SaveInstrument()
         {
-            bool added = blc.AddInstrument(EditCurrentInstrument);
+            bool added = blc.AddInstrument(CurrentInstrument);
             if (added)
-                Instruments.Add(new InstrumentViewModel(EditCurrentInstrument));
+                Instruments.Add(new InstrumentViewModel(CurrentInstrument));
+        }
+
+        public void NotifyAllProperties()
+        {
+            PropertyInfo[] properties = GetType().GetProperties();
+            foreach (PropertyInfo property in properties)
+                OnPropertyChanged(property.Name);
         }
     }
 }

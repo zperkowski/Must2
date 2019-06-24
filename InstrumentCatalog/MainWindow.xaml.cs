@@ -23,7 +23,6 @@ namespace InstrumentCatalog
     {
         public MainWindow()
         {
-            MessageBox.Show("Main Window");
             string source = Properties.Settings.Default.DAOFilename;
             BLC.BLC blc = new BLC.BLC(source);
             InstrumentListViewModel ilvm = new InstrumentListViewModel(blc);

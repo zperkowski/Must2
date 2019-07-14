@@ -36,7 +36,7 @@ namespace InstrumentCatalog.ViewModel
             if (CurrentProducer != null)
             {
                 ProducerViewModel producer = new ProducerViewModel(blc.CreateProducer(CurrentProducer.Producer));
-                MessageBox.Show("Added " + CurrentProducer.Name);
+                MessageBox.Show("New producer added");
                 if (producer == null)
                 {
                     MessageBox.Show("Error");

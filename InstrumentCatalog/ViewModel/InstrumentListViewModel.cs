@@ -28,13 +28,12 @@ namespace InstrumentCatalog.ViewModel
             CreateInstrumentCommand = new RCommand(_ => CreateInstrument());
             DeleteInstrumentCommand = new RCommand(_ => DeleteInstrument(), _ => CurrentInstrument != null);
             SaveInstrumentCommand = new RCommand(_ => SaveInstrument(), _ => CurrentInstrument != null);
-            MessageBox.Show("Linked producers " + producers.Count);
-            Producers = producers;
+            AvailableProducers = producers;
         }
 
         public ObservableCollection<InstrumentViewModel> Instruments { get; set; }
 
-        public ObservableCollection<ProducerViewModel> Producers
+        public ObservableCollection<ProducerViewModel> AvailableProducers
         {
             get;
         }
@@ -46,6 +45,7 @@ namespace InstrumentCatalog.ViewModel
             {
                 _currentInstrument = value;
                 OnPropertyChanged(nameof(CurrentInstrument));
+                Validate();
             }
         }
         public ICommand CreateInstrumentCommand { get; }
@@ -55,7 +55,7 @@ namespace InstrumentCatalog.ViewModel
 
         private void CreateInstrument()
         {
-            MessageBox.Show("Create Instrument");
+            MessageBox.Show("Instrument created");
             IInstrument newInstrument = blc.NewInstrument();
             Instruments.Add(new InstrumentViewModel(newInstrument));
         }
@@ -66,6 +66,7 @@ namespace InstrumentCatalog.ViewModel
             {
                 _currentInstrument = value;
                 OnPropertyChanged(nameof(SelectInstrument));
+                Validate();
             }
         }
         private void DeleteInstrument()

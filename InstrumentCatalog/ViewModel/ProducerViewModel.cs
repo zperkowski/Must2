@@ -10,6 +10,7 @@ using BLC;
 using System.Windows.Input;
 using System.Windows;
 using System.Reflection;
+using System.ComponentModel.DataAnnotations;
 
 namespace InstrumentCatalog.ViewModel
 {
@@ -20,7 +21,6 @@ namespace InstrumentCatalog.ViewModel
         public ProducerViewModel(IProducer producer)
         {
             _producer = producer;
-            MessageBox.Show("ProducerViewModel Constructor " + Name);
         }
 
         public IProducer Producer
@@ -28,9 +28,28 @@ namespace InstrumentCatalog.ViewModel
             get => _producer;
         }
 
+        [Required(ErrorMessage = "Producer name required")]
         public string Name
         {
             get => _producer.Name;
+            set
+            {
+                _producer.Name = value;
+                OnPropertyChanged(nameof(Name));
+                Validate();
+            }
+        }
+
+        [Required(ErrorMessage = "Foundation year required")]
+        public int Founded
+        {
+            get => _producer.Founded;
+            set
+            {
+                _producer.Founded = value;
+                OnPropertyChanged(nameof(Founded));
+                Validate();
+            }
         }
     }
 }

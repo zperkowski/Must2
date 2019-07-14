@@ -5,11 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InstrumentCatalog"
         xmlns:vm="clr-namespace:InstrumentCatalog.ViewModel"
-        xmlns:converter="namespace InstrumentCatalog.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <vm:VMConverter x:Key="producerConverter"/>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
@@ -44,74 +42,78 @@
         </Style>
     </Window.Resources>
     <TabControl SelectedIndex="{Binding CurrentTab}">
+        
         <TabItem Header="Instruments" DataContext="{Binding InstVM}">
+            <AdornerDecorator>
+                <DockPanel>
+                    <ListBox Name="instrumentsLstBox" DockPanel.Dock="Left" 
+                         Width="150"
+                         ItemsSource="{Binding Instruments}"
+                         SelectedItem="{Binding CurrentInstrument}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding ID}" />
+                                    <TextBlock Text=" | " MinWidth="1" />
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text=" | " MinWidth="1" />
+                                    <TextBlock Text="{Binding ProductionYear}" />
+                                    <TextBlock Text=" | " MinWidth="1" />
+                                    <TextBlock Text="{Binding Producer.Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
+                        <Button Command="{Binding CreateInstrumentCommand}">Create Instrument</Button>
+                        <Button Command="{Binding DeleteInstrumentCommand}">Delete Instrument</Button>
+                    </StackPanel>
+                    <Grid DataContext="{Binding CurrentInstrument}" Width="328">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="300*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0">Name</Label>
+                            <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Name}"/>
+                            <Label Grid.Row="1">Production Year</Label>
+                            <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding ProductionYear}"/>
+                            <Label Grid.Row="2">Producer</Label>
+                            <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding Producer.Name}"/>
+                            <Label Grid.Row="3">Type</Label>
+                            <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding Type}"/>
+                        </Grid>
+                    </Grid>
+                </DockPanel>
+            </AdornerDecorator>
+         </TabItem>
+
+        <TabItem Header="Producers" DataContext="{Binding ProdVM}">
             <DockPanel>
-                <ListBox Name="instrumentsLstBox" DockPanel.Dock="Left" 
-                     Width="150"
-                     ItemsSource="{Binding Instruments}"
-                     SelectedItem="{Binding CurrentInstrument}">
+                <ListBox DockPanel.Dock="Left"  Width="150"
+                    ItemsSource="{Binding ProducersList}" SelectedItem ="{Binding CurrentProducer}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding ID}" />
-                                <TextBlock Text=" | " MinWidth="1" />
-                                <TextBlock Text="{Binding Name}"/>
-                                <TextBlock Text=" | " MinWidth="1" />
-                                <TextBlock Text="{Binding ProductionYear}" />
-                                <TextBlock Text=" | " MinWidth="1" />
-                                <TextBlock Text="{Binding Producer.Name}"/>
+                                <TextBlock Text="{Binding Name}" MinWidth="50"/>
+                                <TextBlock Text=" | " MinWidth="1"/>
+                                <TextBlock Text="{Binding Founded}" MinWidth="50"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
-                    <Button Command="{Binding CreateInstrumentCommand}">Create Instrument</Button>
-                    <Button Command="{Binding DeleteInstrumentCommand}">Delete Instrument</Button>
-                </StackPanel>
-                <Grid DataContext="{Binding CurrentInstrument}" Width="328">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="300*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0">Instrument ID</Label>
-                        <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding ID}"/>
-                        <Label Grid.Row="1">Name</Label>
-                        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Name}"/>
-                        <Label Grid.Row="2">Production Year</Label>
-                        <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding ProductionYear}"/>
-                        <Label Grid.Row="3">Producer</Label>
-                        <ComboBox Grid.Row="3" Grid.Column="1" 
-                              ItemsSource="{Binding Producers}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Producer.Name}"></TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <Label Grid.Row="4">Type</Label>
-                        <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding Type}"/>
-                    </Grid>
-                </Grid>
-            </DockPanel>
-        </TabItem>
-
-        <TabItem Header="Producers" DataContext="{Binding ProdVM}">
-            <DockPanel>
-                <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom" DataContext="{Binding ProdVM}">
                     <Button Command="{Binding AddProducerCommand}">Add producer</Button>
                 </StackPanel>
                 <Grid DataContext="{Binding CurrentProducer}">
@@ -127,17 +129,11 @@
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <ComboBox Grid.Row="0" Grid.Column="1" 
-                              ItemsSource="{Binding Producers}"/>
-                        <Label Grid.Row="1">Producer ID</Label>
-                        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding ID}"/>
-                        <Label Grid.Row="2">Name</Label>
-                        <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding Name}"/>
-                        <Label Grid.Row="3">Founded</Label>
-                        <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding Founded}"/>
+                        <Label Grid.Row="0">Name</Label>
+                        <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Name}"/>
+                        <Label Grid.Row="1">Founded</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Founded}"/>
                     </Grid>
                 </Grid>
             </DockPanel>

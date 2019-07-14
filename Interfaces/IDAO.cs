@@ -13,7 +13,6 @@ namespace Interfaces
         bool AddInstrument(IInstrument instrument);
         IInstrument NewInstrument();
         bool DeleteInstrument(IInstrument instrument);
-        IProducer NewProducer();
-        bool DeleteProducer(IProducer producer);
+        IProducer CreateProducer(IProducer producer);
     }
 }

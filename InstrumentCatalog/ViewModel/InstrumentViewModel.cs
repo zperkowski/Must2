@@ -4,6 +4,7 @@ using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -37,6 +38,7 @@ namespace InstrumentCatalog.ViewModel
             }
         }
 
+        [Required(ErrorMessage = "Name required")]
         public string Name
         {
             get => instrument.Name;
@@ -44,9 +46,11 @@ namespace InstrumentCatalog.ViewModel
             {
                 instrument.Name = value;
                 OnPropertyChanged(nameof(Name));
+                Validate();
             }
         }
 
+        [Required(ErrorMessage = "Production year required")]
         public int ProductionYear
         {
             get => instrument.ProductionYear;
@@ -54,6 +58,7 @@ namespace InstrumentCatalog.ViewModel
             {
                 instrument.ProductionYear = value;
                 OnPropertyChanged(nameof(ProductionYear));
+                Validate();
             }
         }
 
@@ -73,7 +78,6 @@ namespace InstrumentCatalog.ViewModel
             set
             {
                 instrument.Type = value;
-                MessageBox.Show("Type " + value);
                 OnPropertyChanged(nameof(Type));
             }
         }

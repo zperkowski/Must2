@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using BLC;
 
 namespace InstrumentCatalog.ViewModel
@@ -15,7 +16,6 @@ namespace InstrumentCatalog.ViewModel
         private BLC.BLC blc;
 
         public ObservableCollection<ProducerViewModel> ProducersList { get; set; }
-        public ProducerViewModel AddProducer { get; }
         public RCommand DeleteProducerCommand { get; }
 
 
@@ -28,15 +28,30 @@ namespace InstrumentCatalog.ViewModel
             _tab_no = tab_no;
             ProducersList = new ObservableCollection<ProducerViewModel>(
                     blc.GetProducers().Select(p => new ProducerViewModel(p)));
-            AddProducer = new ProducerViewModel(blc.CreateProducer());
+            AddProducerCommand = new RCommand(_ => AddProducer());
         }
+
+        public void AddProducer()
+        {   
+            if (CurrentProducer != null)
+            {
+                ProducerViewModel producer = new ProducerViewModel(blc.CreateProducer(CurrentProducer.Producer));
+                MessageBox.Show("Added " + CurrentProducer.Name);
+                if (producer == null)
+                {
+                    MessageBox.Show("Error");
+                }
+                ProducersList.Add(producer);
+            }
+        }
+
+        public ICommand AddProducerCommand { get; }
 
         public ProducerViewModel CurrentProducer
         {
             get => _currentProducer;
             set
             {
-                MessageBox.Show("Add Producer");
                 _currentProducer = value;
                 OnPropertyChanged(nameof(CurrentProducer));
             }

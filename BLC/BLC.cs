@@ -52,13 +52,9 @@ namespace BLC
             return dao.DeleteInstrument(instrument);
         }
 
-        public IProducer CreateProducer()
+        public IProducer CreateProducer(IProducer producer)
         {
-            return dao.NewProducer();
-        }
-        public bool DeleteProducer(IProducer producer)
-        {
-            return dao.DeleteProducer(producer);
+            return dao.CreateProducer(producer);
         }
     }
 }

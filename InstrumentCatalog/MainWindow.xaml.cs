@@ -27,6 +27,5 @@ namespace InstrumentCatalog
             InitializeComponent();
             DataContext = vmc;
         }
-
     }
 }

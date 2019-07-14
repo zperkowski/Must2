@@ -93,38 +93,30 @@ namespace DAOMock1
             IInstrument newI = new BO.Instrument
             {
                 ID = _instruments.Count(),
-                Name = "New",
+                Name = "",
                 Producer = null,
                 ProductionYear = 0,
                 Type = Core.InstrumentType.Unknown
             };
             _instruments.Add(newI);
-            MessageBox.Show("DB NewInstrument " + _instruments.Count());
             return newI;
         }
 
         public bool DeleteInstrument(IInstrument instrument)
         {
-            MessageBox.Show("DB DeleteInstrument");
             return _instruments.Remove(instrument);
         }
 
-        public IProducer NewProducer()
+        public IProducer CreateProducer(IProducer producer)
         {
-            IProducer newP = new BO.Producent
+            IProducer new_producer = new BO.Producent
             {
                 ID = _producers.Count(),
-                Name = "New Producer Name",
-                Founded = 2019
+                Name = "",
+                Founded = 0
             };
-            return newP;
+            _producers.Add(new_producer);
+            return new_producer;
         }
-
-        public bool DeleteProducer(IProducer producer)
-        {
-            MessageBox.Show("Producer removed");
-            return _producers.Remove(producer);
-        }
-
     }
 }

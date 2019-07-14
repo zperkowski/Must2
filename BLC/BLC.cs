@@ -51,5 +51,15 @@ namespace BLC
         {
             return dao.DeleteInstrument(instrument);
         }
+
+        public IProducer CreateProducer()
+        {
+            return dao.NewProducer();
+        }
+        public bool DeleteProducer(IProducer producer)
+        {
+            return dao.DeleteProducer(producer);
+        }
+
     }
 }

@@ -25,7 +25,8 @@ namespace InstrumentCatalog
         {
             string source = Properties.Settings.Default.DAOFilename;
             BLC.BLC blc = new BLC.BLC(source);
-            InstrumentListViewModel ilvm = new InstrumentListViewModel(blc);
+            ProducerListViewModel plvm = new ProducerListViewModel(blc);
+            InstrumentListViewModel ilvm = new InstrumentListViewModel(blc, plvm.ProducersList);
 
             InitializeComponent();
             DataContext = ilvm;

@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BLC;
 using System.Windows.Input;
-using System.Windows;
 using System.Reflection;
+using System.Windows;
 
 namespace InstrumentCatalog.ViewModel
 {
@@ -18,7 +18,7 @@ namespace InstrumentCatalog.ViewModel
         private BLC.BLC blc;
         private InstrumentViewModel _currentInstrument;
 
-        public InstrumentListViewModel(BLC.BLC blc)
+        public InstrumentListViewModel(BLC.BLC blc, ObservableCollection<ProducerViewModel> producers)
         {
             this.blc = blc;
             Instruments = new ObservableCollection<InstrumentViewModel>(
@@ -26,6 +26,8 @@ namespace InstrumentCatalog.ViewModel
             CreateInstrumentCommand = new RCommand(_ => CreateInstrument());
             DeleteInstrumentCommand = new RCommand(_ => DeleteInstrument(), _ => CurrentInstrument != null);
             SaveInstrumentCommand = new RCommand(_ => SaveInstrument(), _ => CurrentInstrument != null);
+            MessageBox.Show("Linked producers " + producers.Count);
+            Producers = producers;
         }
 
         public ObservableCollection<InstrumentViewModel> Instruments { get; set; }
@@ -37,11 +39,9 @@ namespace InstrumentCatalog.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private ObservableCollection<IProducer> producers;
-
-        public ObservableCollection<IProducer> Producers
+        public ObservableCollection<ProducerViewModel> Producers
         {
-            get => producers;
+            get;
         }
 
         public InstrumentViewModel CurrentInstrument
@@ -49,7 +49,6 @@ namespace InstrumentCatalog.ViewModel
             get => _currentInstrument;
             set
             {
-                MessageBox.Show("CurrentInstrument " + value);
                 _currentInstrument = value;
                 OnPropertyChanged(nameof(CurrentInstrument));
             }
@@ -61,6 +60,7 @@ namespace InstrumentCatalog.ViewModel
 
         private void CreateInstrument()
         {
+            MessageBox.Show("Create Instrument");
             IInstrument newInstrument = blc.NewInstrument();
             Instruments.Add(new InstrumentViewModel(newInstrument));
         }
@@ -75,7 +75,6 @@ namespace InstrumentCatalog.ViewModel
         }
         private void DeleteInstrument()
         {
-            MessageBox.Show("DeleteInstrument");
             if (blc.DeleteInstrument(CurrentInstrument.Instrument))
                 Instruments.Remove(SelectInstrument);
         }

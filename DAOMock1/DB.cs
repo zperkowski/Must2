@@ -108,5 +108,23 @@ namespace DAOMock1
             MessageBox.Show("DB DeleteInstrument");
             return _instruments.Remove(instrument);
         }
+
+        public IProducer NewProducer()
+        {
+            IProducer newP = new BO.Producent
+            {
+                ID = _producers.Count(),
+                Name = "New Producer Name",
+                Founded = 2019
+            };
+            return newP;
+        }
+
+        public bool DeleteProducer(IProducer producer)
+        {
+            MessageBox.Show("Producer removed");
+            return _producers.Remove(producer);
+        }
+
     }
 }

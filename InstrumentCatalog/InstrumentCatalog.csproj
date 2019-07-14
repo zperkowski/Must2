@@ -72,6 +72,8 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\InstrumentListViewModel.cs" />
     <Compile Include="ViewModel\InstrumentViewModel.cs" />
+    <Compile Include="ViewModel\ProducerListViewModel.cs" />
+    <Compile Include="ViewModel\ProducerViewModel.cs" />
     <Compile Include="ViewModel\RCommand.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

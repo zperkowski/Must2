@@ -13,14 +13,16 @@ using System.Windows;
 
 namespace InstrumentCatalog.ViewModel
 {
-    public class InstrumentListViewModel : INotifyPropertyChanged
+    public class InstrumentListViewModel : MVMaster
     {
         private BLC.BLC blc;
         private InstrumentViewModel _currentInstrument;
+        private Action<int> _tab_no;
 
-        public InstrumentListViewModel(BLC.BLC blc, ObservableCollection<ProducerViewModel> producers)
+        public InstrumentListViewModel(BLC.BLC blc, Action<int> tab_no, ObservableCollection<ProducerViewModel> producers)
         {
             this.blc = blc;
+            _tab_no = tab_no;
             Instruments = new ObservableCollection<InstrumentViewModel>(
                     blc.GetInstruments().Select(p => new InstrumentViewModel(p)));
             CreateInstrumentCommand = new RCommand(_ => CreateInstrument());
@@ -31,13 +33,6 @@ namespace InstrumentCatalog.ViewModel
         }
 
         public ObservableCollection<InstrumentViewModel> Instruments { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public ObservableCollection<ProducerViewModel> Producers
         {
@@ -80,16 +75,9 @@ namespace InstrumentCatalog.ViewModel
         }
         private void SaveInstrument()
         {
-            bool added = blc.AddInstrument(CurrentInstrument);
+            bool added = blc.AddInstrument(CurrentInstrument.Instrument);
             if (added)
-                Instruments.Add(new InstrumentViewModel(CurrentInstrument));
-        }
-
-        public void NotifyAllProperties()
-        {
-            PropertyInfo[] properties = GetType().GetProperties();
-            foreach (PropertyInfo property in properties)
-                OnPropertyChanged(property.Name);
+                Instruments.Add(new InstrumentViewModel(CurrentInstrument.Instrument));
         }
     }
 }

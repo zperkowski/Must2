@@ -16,20 +16,16 @@ using System.Windows.Shapes;
 
 namespace InstrumentCatalog
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             string source = Properties.Settings.Default.DAOFilename;
             BLC.BLC blc = new BLC.BLC(source);
-            ProducerListViewModel plvm = new ProducerListViewModel(blc);
-            InstrumentListViewModel ilvm = new InstrumentListViewModel(blc, plvm.ProducersList);
+            ViewModelContainer vmc = new ViewModelContainer(blc);
 
             InitializeComponent();
-            DataContext = ilvm;
+            DataContext = vmc;
         }
 
     }

@@ -8,10 +8,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InstrumentCatalog.ViewModel
 {
-    public class InstrumentViewModel : INotifyPropertyChanged, IInstrument
+    public class InstrumentViewModel : MVMaster
     {
 
         public InstrumentViewModel(IInstrument instrument)
@@ -66,27 +67,14 @@ namespace InstrumentCatalog.ViewModel
             }
         }
 
-        public Core.InstrumentType Transmission
+        public InstrumentType Type
         {
             get => instrument.Type;
             set
             {
                 instrument.Type = value;
-                OnPropertyChanged(nameof(Transmission));
-            }
-        }
-
-        public InstrumentType Type { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        //INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        public void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                MessageBox.Show("Type " + value);
+                OnPropertyChanged(nameof(Type));
             }
         }
     }

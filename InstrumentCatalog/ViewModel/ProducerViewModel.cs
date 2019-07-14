@@ -13,10 +13,8 @@ using System.Reflection;
 
 namespace InstrumentCatalog.ViewModel
 {
-    public class ProducerViewModel : INotifyPropertyChanged
+    public class ProducerViewModel : MVMaster
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private IProducer _producer;
 
         public ProducerViewModel(IProducer producer)

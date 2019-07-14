@@ -60,6 +60,5 @@ namespace BLC
         {
             return dao.DeleteProducer(producer);
         }
-
     }
 }
